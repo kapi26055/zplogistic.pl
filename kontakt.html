@@ -21,7 +21,7 @@
       <a class="" href="index.html">Home Page</a>
       <a class="active" href="kontakt.html">Kontakt</a>
       <a class="" href="info-zarzad.html">Info Zarząd</a>
-    </nav>
+    </nav>F
     <button class="nav-toggle" aria-expanded="false" aria-label="Otwórz menu">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M4 7H20M4 12H20M4 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -73,7 +73,7 @@
  * KROK: wejdź na formspree.io → New Form → skopiuj endpoint (np. https://formspree.io/f/abcdwxyz)
  * i wklej poniżej do FORM_ENDPOINT.
  */
-const FORM_ENDPOINT = "https://formspree.io/f/PASTE_YOUR_ID_HERE";
+const FORM_ENDPOINT = "https://formspree.io/f/mgoejkkb";
 
 const form = document.getElementById("contactForm");
 const statusEl = document.getElementById("formStatus");
@@ -88,9 +88,7 @@ if(form){
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    if(FORM_ENDPOINT.includes("PASTE_YOUR_ID_HERE")){
-      setStatus("Ustaw endpoint Formspree w pliku kontakt.html (FORM_ENDPOINT).", false);
-      return;
+   
     }
 
     const fd = new FormData(form);
