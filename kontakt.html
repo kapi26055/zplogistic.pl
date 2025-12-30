@@ -1,149 +1,125 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kontakt | Zagroda Przyjaźni Logistic</title>
-
-  <style>
-    body{
-      margin:0;
-      font-family: Arial, Helvetica, sans-serif;
-      background:#fff;
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-    }
-
-    /* ===== HEADER ===== */
-    header{
-      background:linear-gradient(to right,#000,#222);
-      color:#fff;
-      padding:18px 40px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-    }
-    header h1{
-      margin:0;
-      font-size:16px;
-      letter-spacing:3px;
-      font-weight:400;
-    }
-    nav a{
-      color:#bbb;
-      text-decoration:none;
-      margin-left:20px;
-      font-size:14px;
-      padding:6px 12px;
-      border-radius:6px;
-      transition:.2s;
-    }
-    nav a:hover{color:#fff;}
-    nav a.active{
-      background:#2a2a2a;
-      color:#fff;
-    }
-
-    /* ===== CONTENT ===== */
-    .page{
-      flex:1;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-    }
-    .container{
-      text-align:center;
-      max-width:700px;
-      padding:40px 20px;
-    }
-    h2{
-      margin-bottom:10px;
-      letter-spacing:2px;
-      font-weight:400;
-    }
-    .subtitle{
-      color:#555;
-      margin-bottom:50px;
-      line-height:1.6;
-    }
-
-    .contact-button{
-      padding:16px 42px;
-      font-size:16px;
-      background:#c00000;
-      color:#fff;
-      border:none;
-      border-radius:999px;
-      cursor:pointer;
-      transition:opacity .2s ease;
-    }
-    .contact-button:hover{opacity:.9;}
-
-    /* ===== FOOTER IMAGE ===== */
-    .footer-image{
-      position:relative;
-      height:180px;
-      background:url("img/footer-trucks.jpg") center/cover no-repeat;
-    }
-    .footer-image::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:rgba(0,0,0,.65);
-    }
-
-    /* ===== FOOTER ===== */
-    footer{
-      background:#111;
-      color:#fff;
-      text-align:center;
-      padding:14px 10px;
-      font-size:14px;
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ZPlogistic — Kontakt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css" />
+  
 </head>
-
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <h1>ZAGRODA PRZYJAŹNI LOGISTIC</h1>
-    <nav>
-      <a href="index.html">Home Page</a>
-      <a href="kontakt.html" class="active">Kontakt</a>
-      <a href="infozarzad.html">Info Zarząd</a>
+
+<header class="site-header dark">
+  <div class="container header-inner">
+    <div></div>
+    <a class="brand" href="index.html">ZAGRODA PRZYJAŹNI LOGISTIC</a>
+    <nav class="nav" aria-label="Nawigacja">
+      <a class="" href="index.html">Home Page</a>
+      <a class="active" href="kontakt.html">Kontakt</a>
+      <a class="" href="info-zarzad.html">Info Zarząd</a>
     </nav>
-  </header>
-
-  <!-- CONTENT -->
-  <div class="page">
-    <div class="container">
-      <h2>Skontaktuj się z nami</h2>
-      <p class="subtitle">
-        Skontaktuj się z nami w przypadku pytań, wsparcia lub opinii.
-        Jesteśmy tutaj, aby pomóc Ci na każdym kroku.
-      </p>
-
-      <button class="contact-button" id="formButton">
-        Formularz kontaktowy
-      </button>
-    </div>
+    <button class="nav-toggle" aria-expanded="false" aria-label="Otwórz menu">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 7H20M4 12H20M4 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
   </div>
+</header>
 
-  <!-- FOOTER IMAGE -->
-  <div class="footer-image"></div>
 
-  <!-- FOOTER -->
-  <footer>
-    © Wszelkie prawa zastrzeżone ZPlogistic
-  </footer>
+<main>
+  <section class="page-hero">
+    <div class="container">
+      <h1>Skontaktuj się z nami</h1>
+      <p>Skontaktuj się z nami w przypadku pytań, wsparcia lub opinii. Jesteśmy tutaj, aby pomóc Ci na każdym kroku.</p>
+    </div>
+  </section>
 
-  <script>
-    const FORM_ENDPOINT = "https://formspree.io/f/mgoejkkb";
-    document.getElementById("formButton").onclick = () =>
-      window.location.href = FORM_ENDPOINT;
-  </script>
+  <section class="form-wrap">
+    <h2 class="form-title">Formularz kontaktowy</h2>
+    <form id="contactForm" class="zp-form" novalidate>
+      <input type="hidden" name="_subject" value="ZPlogistic - wiadomość ze strony">
+
+      <label for="email">Twój adres e-mail</label>
+      <input id="email" name="email" type="email" placeholder="email@email.com" required>
+
+      <label for="msg">Wiadomość</label>
+      <textarea id="msg" name="message" required></textarea>
+
+      <label class="checkbox">
+        <input type="checkbox" name="rodo" required>
+        <span>Zgadzam się na przetwarzanie moich danych osobowych</span>
+      </label>
+
+      <button class="btn red" type="submit">Wyślij</button>
+      <p id="formStatus" class="micro" style="margin-top:12px;"></p>
+    </form>
+  </section>
+
+  <div class="footer-photo">
+    <footer class="site-footer">© Wszelkie prawa zastrzeżone ZPlogistic</footer>
+  </div>
+</main>
+
+<script src="assets/js/main.js"></script>
+
+<script>
+/**
+ * Formularz działa w 100% w przeglądarce dzięki Formspree.
+ * KROK: wejdź na formspree.io → New Form → skopiuj endpoint (np. https://formspree.io/f/abcdwxyz)
+ * i wklej poniżej do FORM_ENDPOINT.
+ */
+const FORM_ENDPOINT = "https://formspree.io/f/PASTE_YOUR_ID_HERE";
+
+const form = document.getElementById("contactForm");
+const statusEl = document.getElementById("formStatus");
+
+function setStatus(msg, ok){
+  if(!statusEl) return;
+  statusEl.textContent = msg;
+  statusEl.style.color = ok ? "" : "#c00000";
+}
+
+if(form){
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    if(FORM_ENDPOINT.includes("PASTE_YOUR_ID_HERE")){
+      setStatus("Ustaw endpoint Formspree w pliku kontakt.html (FORM_ENDPOINT).", false);
+      return;
+    }
+
+    const fd = new FormData(form);
+
+    try{
+      setStatus("Wysyłanie…", true);
+
+      const res = await fetch(FORM_ENDPOINT, {
+        method: "POST",
+        headers: { "Accept": "application/json" },
+        body: fd
+      });
+
+      if(res.ok){
+        form.reset();
+        setStatus("Wiadomość została wysłana. Dzięki!", true);
+      }else{
+        const data = await res.json().catch(() => null);
+        const msg = (data && data.errors && data.errors[0] && data.errors[0].message)
+          ? data.errors[0].message
+          : "Nie udało się wysłać wiadomości. Spróbuj ponownie.";
+        setStatus(msg, false);
+      }
+    }catch(err){
+      setStatus("Błąd sieci. Sprawdź połączenie i spróbuj ponownie.", false);
+    }
+  });
+}
+</script>
 
 </body>
 </html>
