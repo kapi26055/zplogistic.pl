@@ -1,69 +1,166 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kontakt | ZP Logistic</title>
 
   <style>
-    body{
-      margin:0;
+    body {
+      margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background:#fff;
-      min-height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
+      background: #ffffff;
+      color: #111;
     }
-    .container{
-      text-align:center;
-      max-width:700px;
-      padding:40px 20px;
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 80px 20px 120px;
     }
-    h1{
-      margin-bottom:10px;
-      letter-spacing:2px;
+
+    h1 {
+      text-align: center;
+      letter-spacing: 4px;
+      margin-bottom: 10px;
     }
-    .subtitle{
-      color:#555;
-      margin-bottom:50px;
-      line-height:1.6;
+
+    .subtitle {
+      text-align: center;
+      color: #555;
+      margin-bottom: 60px;
     }
-    .contact-button{
-      padding:16px 40px;
-      font-size:16px;
-      background:#c00000;
-      color:#fff;
-      border:none;
-      border-radius:999px;
-      cursor:pointer;
-      transition:opacity .2s ease;
+
+    h2 {
+      letter-spacing: 3px;
+      margin-bottom: 30px;
     }
-    .contact-button:hover{
-      opacity:.9;
+
+    label {
+      display: block;
+      margin: 20px 0 8px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 2px;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      min-height: 160px;
+      resize: vertical;
+    }
+
+    .checkbox {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .checkbox input {
+      width: auto;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 14px 36px;
+      background: #c00000;
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    #formStatus {
+      margin-top: 20px;
+      font-size: 14px;
     }
   </style>
 </head>
 
 <body>
+
   <div class="container">
-    <h1>Skontaktuj się z nami</h1>
+    <h1>SKONTAKTUJ SIĘ Z NAMI</h1>
     <p class="subtitle">
       Skontaktuj się z nami w przypadku pytań, wsparcia lub opinii.
       Jesteśmy tutaj, aby pomóc Ci na każdym kroku.
     </p>
 
-    <button class="contact-button" id="formButton">
-      Formularz kontaktowy
-    </button>
+    <h2>FORMULARZ KONTAKTOWY</h2>
+
+    <form id="contactForm" method="POST">
+      <label for="email">Twój adres e-mail</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="message">Wiadomość</label>
+      <textarea id="message" name="message" required></textarea>
+
+      <div class="checkbox">
+        <input type="checkbox" id="rodo" required />
+        <label for="rodo">Zgadzam się na przetwarzanie moich danych osobowych</label>
+      </div>
+
+      <button type="submit">Wyślij</button>
+      <div id="formStatus"></div>
+    </form>
   </div>
 
   <script>
     const FORM_ENDPOINT = "https://formspree.io/f/mgoejkkb";
 
-    document.getElementById("formButton").addEventListener("click", () => {
-      window.location.href = FORM_ENDPOINT;
-    });
+    const form = document.getElementById("contactForm");
+    const statusEl = document.getElementById("formStatus");
+
+    function setStatus(msg, ok) {
+      statusEl.textContent = msg;
+      statusEl.style.color = ok ? "#000" : "#c00000";
+    }
+
+    if (form) {
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const fd = new FormData(form);
+
+        try {
+          setStatus("Wysyłanie…", true);
+
+          const res = await fetch(FORM_ENDPOINT, {
+            method: "POST",
+            headers: { "Accept": "application/json" },
+            body: fd
+          });
+
+          if (res.ok) {
+            form.reset();
+            setStatus("Wiadomość została wysłana. Dziękujemy!", true);
+          } else {
+            let data = null;
+            try { data = await res.json(); } catch (e) {}
+            setStatus(
+              data?.errors?.[0]?.message ||
+              "Nie udało się wysłać wiadomości. Spróbuj ponownie.",
+              false
+            );
+          }
+        } catch (err) {
+          setStatus("Błąd sieci. Spróbuj ponownie później.", false);
+        }
+      });
+    }
   </script>
+
 </body>
 </html>
